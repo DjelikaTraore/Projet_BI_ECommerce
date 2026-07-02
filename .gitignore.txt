@@ -1,0 +1,17 @@
+## --- Fichiers utilisateur et temporaires de Visual Studio ---
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## --- Dossiers de Build et de Sortie ---
+[Bb]in/
+[Ob]ject/
+[Log]/
+*.dtpart
+*.tmp
+
+## --- Trucs spécifiques à SSAS / SSIS ---
+*.asdatabase
+*.deploymenttargets
+*.configregreport
