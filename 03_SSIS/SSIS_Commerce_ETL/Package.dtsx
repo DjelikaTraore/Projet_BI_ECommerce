@@ -11,11 +11,76 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{B432F5A0-B52B-4C6A-927B-9DD128A9B174}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{2F9C980F-452C-42E2-9756-2D8CC4895DD4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Connexion_CSV_Produits]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{45990F99-E5BF-43C5-869C-594B22509EE8}"
+      DTS:ObjectName="Connexion_CSV_Produits">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\Dell\Documents\L3-ILD-UIE\BI\Projet_BI_ECommerce\01_Donnees_Brutes\DimProduits.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ProduitID"
+              DTS:DTSID="{3C1DB6E0-0CFD-4203-AD17-AAFBD403AECB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="NomProduit"
+              DTS:DTSID="{7C38AE6B-AAF4-4995-BEA3-A86663D1CA40}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Categorie"
+              DTS:DTSID="{984D7CC7-F551-4C1F-852C-964084010008}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Marque"
+              DTS:DTSID="{A446F706-5103-40DF-BEB2-1035C0A8EEFD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="PrixDeBase"
+              DTS:DTSID="{DC603226-475D-4972-B00B-AF662B9AC96E}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[Connexion_CSV_ZonesGeo]"
       DTS:CreationName="FLATFILE"
@@ -87,6 +152,405 @@
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement_DimProduits"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5604AE61-457D-4A9C-8DDF-41442A53AD82}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement_DimProduits"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination_SQL_DimProduits"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimProduits]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[D-TRAORE.Commerce_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[D-TRAORE.Commerce_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].Columns[ProduitID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProduitID"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[ProduitID]"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[ProduitID]" />
+                    <inputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].Columns[NomProduit]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="NomProduit"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[NomProduit]"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[NomProduit]" />
+                    <inputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].Columns[Categorie]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Categorie"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[Categorie]"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Categorie]" />
+                    <inputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].Columns[Marque]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Marque"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[Marque]"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Marque]" />
+                    <inputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].Columns[PrixDeBase]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PrixDeBase"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[PrixDeBase]"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[PrixDeBase]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[ProduitID]"
+                      dataType="i4"
+                      name="ProduitID" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[NomProduit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="NomProduit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[Categorie]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Categorie" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[Marque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Marque" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input].ExternalColumns[PrixDeBase]"
+                      dataType="i4"
+                      name="PrixDeBase" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement_DimProduits\Source_CSV_Produits"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="Source_CSV_Produits"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement_DimProduits\Source_CSV_Produits.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Connexion_CSV_Produits]"
+                  connectionManagerRefId="Package.ConnectionManagers[Connexion_CSV_Produits]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[ProduitID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[ProduitID]"
+                      length="50"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[ProduitID]"
+                      name="ProduitID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[NomProduit]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[NomProduit]"
+                      length="50"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[NomProduit]"
+                      name="NomProduit"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Categorie]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[Categorie]"
+                      length="50"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Categorie]"
+                      name="Categorie"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Marque]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[Marque]"
+                      length="50"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[Marque]"
+                      name="Marque"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[PrixDeBase]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[PrixDeBase]"
+                      length="50"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].Columns[PrixDeBase]"
+                      name="PrixDeBase"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[ProduitID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProduitID" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[NomProduit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NomProduit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[Categorie]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Categorie" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[Marque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Marque" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output].ExternalColumns[PrixDeBase]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PrixDeBase" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement_DimProduits.Paths[Flat File Source Output]"
+              endId="Package\Chargement_DimProduits\Destination_SQL_DimProduits.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Chargement_DimProduits\Source_CSV_Produits.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Chargement_DimZonesGeo"
       DTS:CreationName="Microsoft.Pipeline"
@@ -449,6 +913,16 @@
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{61BC76BA-D8B7-421D-A460-F066E5F555AE}"
+      DTS:From="Package\Chargement_DimZonesGeo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Chargement_DimProduits" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -460,11 +934,49 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="207.2,41.6"
           Id="Package\Chargement_DimZonesGeo"
           TopLeft="294.23077563871,100.454547586479" />
+        <NodeLayout
+          Size="198.4,41.6"
+          Id="Package\Chargement_DimProduits"
+          TopLeft="311.923083716331,199.333337563758" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="397.83077563871,142.054547586479">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="13.2923080776214,57.2787899772791"
+              Start="0,0"
+              End="13.2923080776214,49.7787899772791">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.6393949886396" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.6393949886396"
+                    Point2="0,28.6393949886396"
+                    Point3="4,28.6393949886396" />
+                  <mssgle:LineSegment
+                    End="9.29230807762144,28.6393949886396" />
+                  <mssgle:CubicBezierSegment
+                    Point1="9.29230807762144,28.6393949886396"
+                    Point2="13.2923080776214,28.6393949886396"
+                    Point3="13.2923080776214,32.6393949886396" />
+                  <mssgle:LineSegment
+                    End="13.2923080776214,49.7787899772791" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -472,7 +984,7 @@
     design-time-name="Package\Chargement_DimZonesGeo">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="188,41.6"
           Id="Package\Chargement_DimZonesGeo\Source_CSV_ZonesGeo"
@@ -500,7 +1012,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-15.35349609375,23.2390617176891,30.7069921875,9.421875"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -508,6 +1022,71 @@
   </TaskHost>
   <PipelineComponentMetadata
     design-time-name="Package\Chargement_DimZonesGeo\Destination_SQL_DimZonesGeo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Chargement_DimProduits">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Chargement_DimProduits\Source_CSV_Produits"
+          TopLeft="1499.99997764826,285.999995738268" />
+        <NodeLayout
+          Size="218.4,41.6"
+          Id="Package\Chargement_DimProduits\Destination_SQL_DimProduits"
+          TopLeft="1565.99997666478,412.999993845821" />
+        <EdgeLayout
+          Id="Package\Chargement_DimProduits.Paths[Flat File Source Output]"
+          TopLeft="1589.59997764826,327.599995738268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="85.5999990165237,85.3999981075526"
+              Start="0,0"
+              End="85.5999990165237,77.8999981075526">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.6999990537763" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.6999990537763"
+                    Point2="0,42.6999990537763"
+                    Point3="4,42.6999990537763" />
+                  <mssgle:LineSegment
+                    End="81.5999990165237,42.6999990537763" />
+                  <mssgle:CubicBezierSegment
+                    Point1="81.5999990165237,42.6999990537763"
+                    Point2="85.5999990165237,42.6999990537763"
+                    Point3="85.5999990165237,46.6999990537763" />
+                  <mssgle:LineSegment
+                    End="85.5999990165237,77.8999981075526" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="27.4465034145119,47.6999990537763,30.7069921875,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement_DimProduits\Destination_SQL_DimProduits">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
